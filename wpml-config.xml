@@ -1,0 +1,8 @@
+<wpml-config>
+	<admin-texts>
+		<key name="acwppm_settings">
+			<key name="default_message"/>
+			<key name="password_label"/>
+		</key>
+	</admin-texts>
+</wpml-config>
