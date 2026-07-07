@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Custom Password Protected Messages
+ * Plugin Name: ACW Password Protected Messages
  * Plugin URI: https://www.acupofweb.it/
  * Description: Customize the message displayed on password protected content, globally or with a different message for each page.
  * Author: Lorenzo Fracassi
@@ -10,7 +10,7 @@
  * Requires PHP: 7.2
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: custom-password-protected-messages
+ * Text Domain: acw-password-protected-messages
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -97,19 +97,19 @@ function acwppm_filter_password_form( $output ) {
 	}
 
 	if ( '' === $message ) {
-		$message = __( 'This content is password protected. To view it please enter your password below:', 'custom-password-protected-messages' );
+		$message = __( 'This content is password protected. To view it please enter your password below:', 'acw-password-protected-messages' );
 	}
 
 	$label = ! empty( $settings['password_label'] )
 		? $settings['password_label']
-		: __( 'Password:', 'custom-password-protected-messages' );
+		: __( 'Password:', 'acw-password-protected-messages' );
 
 	$field_id = 'acwppm-pwbox-' . ( $post_id ? $post_id : wp_rand() );
 
 	$form  = '<div id="acwppm_message_' . esc_attr( $post_id ) . '" class="acwppm_message post-password-message">' . wp_kses_post( wpautop( $message ) ) . '</div>';
 	$form .= '<form action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" class="post-password-form" method="post">';
 	$form .= '<p><label for="' . esc_attr( $field_id ) . '">' . esc_html( $label ) . ' <input name="post_password" id="' . esc_attr( $field_id ) . '" type="password" spellcheck="false" required size="20"></label> ';
-	$form .= '<input type="submit" name="Submit" value="' . esc_attr_x( 'Enter', 'post password form submit button', 'custom-password-protected-messages' ) . '"></p>';
+	$form .= '<input type="submit" name="Submit" value="' . esc_attr_x( 'Enter', 'post password form submit button', 'acw-password-protected-messages' ) . '"></p>';
 	$form .= '</form>';
 
 	return $form;
@@ -123,8 +123,8 @@ add_filter( 'the_password_form', 'acwppm_filter_password_form', 999999 );
  * @return array
  */
 function acwppm_settings_link( $links ) {
-	$url     = admin_url( 'options-general.php?page=custom-password-protected-messages' );
-	$links[] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Settings', 'custom-password-protected-messages' ) . '</a>';
+	$url     = admin_url( 'options-general.php?page=acw-password-protected-messages' );
+	$links[] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Settings', 'acw-password-protected-messages' ) . '</a>';
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'acwppm_settings_link' );
@@ -134,10 +134,10 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'acwppm_settin
  */
 function acwppm_add_settings_page() {
 	add_options_page(
-		__( 'Password Protected Messages', 'custom-password-protected-messages' ),
-		__( 'Password Messages', 'custom-password-protected-messages' ),
+		__( 'Password Protected Messages', 'acw-password-protected-messages' ),
+		__( 'Password Messages', 'acw-password-protected-messages' ),
 		'manage_options',
-		'custom-password-protected-messages',
+		'acw-password-protected-messages',
 		'acwppm_render_settings_page'
 	);
 }
@@ -216,7 +216,7 @@ function acwppm_sanitize_settings( $input ) {
  * @param string $hook Current admin page hook.
  */
 function acwppm_admin_scripts( $hook ) {
-	if ( 'settings_page_custom-password-protected-messages' !== $hook ) {
+	if ( 'settings_page_acw-password-protected-messages' !== $hook ) {
 		return;
 	}
 
@@ -241,25 +241,25 @@ function acwppm_render_page_message_row( $index, $page_id = 0, $message = '' ) {
 	?>
 	<div class="acwppm-row" style="border:1px solid #c3c4c7; background:#fff; padding:15px; margin-bottom:15px;">
 		<p>
-			<label for="acwppm_page_<?php echo esc_attr( $index ); ?>"><strong><?php esc_html_e( 'Page', 'custom-password-protected-messages' ); ?></strong></label><br>
+			<label for="acwppm_page_<?php echo esc_attr( $index ); ?>"><strong><?php esc_html_e( 'Page', 'acw-password-protected-messages' ); ?></strong></label><br>
 			<?php
 			wp_dropdown_pages(
 				array(
 					'id'                => esc_attr( 'acwppm_page_' . $index ),
 					'name'              => esc_attr( ACWPPM_OPTION . '[page_messages][' . $index . '][page_id]' ),
 					'selected'          => (int) $page_id,
-					'show_option_none'  => esc_html__( '— Select a page —', 'custom-password-protected-messages' ),
+					'show_option_none'  => esc_html__( '— Select a page —', 'acw-password-protected-messages' ),
 					'option_none_value' => '0',
 				)
 			);
 			?>
 		</p>
 		<p>
-			<label for="acwppm_message_<?php echo esc_attr( $index ); ?>"><strong><?php esc_html_e( 'Custom message for this page', 'custom-password-protected-messages' ); ?></strong></label><br>
+			<label for="acwppm_message_<?php echo esc_attr( $index ); ?>"><strong><?php esc_html_e( 'Custom message for this page', 'acw-password-protected-messages' ); ?></strong></label><br>
 			<textarea id="acwppm_message_<?php echo esc_attr( $index ); ?>" name="<?php echo esc_attr( ACWPPM_OPTION . '[page_messages][' . $index . '][message]' ); ?>" rows="4" class="large-text"><?php echo esc_textarea( $message ); ?></textarea>
 		</p>
 		<p>
-			<button type="button" class="button acwppm-remove-row"><?php esc_html_e( 'Remove', 'custom-password-protected-messages' ); ?></button>
+			<button type="button" class="button acwppm-remove-row"><?php esc_html_e( 'Remove', 'acw-password-protected-messages' ); ?></button>
 		</p>
 	</div>
 	<?php
@@ -277,13 +277,13 @@ function acwppm_render_settings_page() {
 	$page_messages = is_array( $settings['page_messages'] ) ? $settings['page_messages'] : array();
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'Password Protected Messages', 'custom-password-protected-messages' ); ?></h1>
+		<h1><?php esc_html_e( 'Password Protected Messages', 'acw-password-protected-messages' ); ?></h1>
 
 		<form method="post" action="options.php">
 			<?php settings_fields( 'acwppm_settings_group' ); ?>
 
-			<h2><?php esc_html_e( 'Default message', 'custom-password-protected-messages' ); ?></h2>
-			<p class="description"><?php esc_html_e( 'This message replaces the default WordPress text on all password protected posts and pages, unless a page-specific message is set below.', 'custom-password-protected-messages' ); ?></p>
+			<h2><?php esc_html_e( 'Default message', 'acw-password-protected-messages' ); ?></h2>
+			<p class="description"><?php esc_html_e( 'This message replaces the default WordPress text on all password protected posts and pages, unless a page-specific message is set below.', 'acw-password-protected-messages' ); ?></p>
 			<?php
 			wp_editor(
 				$settings['default_message'],
@@ -300,14 +300,14 @@ function acwppm_render_settings_page() {
 			);
 			?>
 
-			<h2><?php esc_html_e( 'Password field label', 'custom-password-protected-messages' ); ?></h2>
+			<h2><?php esc_html_e( 'Password field label', 'acw-password-protected-messages' ); ?></h2>
 			<p>
-				<input type="text" id="acwppm_password_label" name="<?php echo esc_attr( ACWPPM_OPTION . '[password_label]' ); ?>" class="regular-text" value="<?php echo esc_attr( $settings['password_label'] ); ?>" placeholder="<?php esc_attr_e( 'Password', 'custom-password-protected-messages' ); ?>">
+				<input type="text" id="acwppm_password_label" name="<?php echo esc_attr( ACWPPM_OPTION . '[password_label]' ); ?>" class="regular-text" value="<?php echo esc_attr( $settings['password_label'] ); ?>" placeholder="<?php esc_attr_e( 'Password', 'acw-password-protected-messages' ); ?>">
 			</p>
-			<p class="description"><?php esc_html_e( 'Optional. Replaces the "Password" label of the input field.', 'custom-password-protected-messages' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Optional. Replaces the "Password" label of the input field.', 'acw-password-protected-messages' ); ?></p>
 
-			<h2><?php esc_html_e( 'Page-specific messages', 'custom-password-protected-messages' ); ?></h2>
-			<p class="description"><?php esc_html_e( 'Show a different message on specific pages. Each page can have its own custom message, which overrides the default message above.', 'custom-password-protected-messages' ); ?></p>
+			<h2><?php esc_html_e( 'Page-specific messages', 'acw-password-protected-messages' ); ?></h2>
+			<p class="description"><?php esc_html_e( 'Show a different message on specific pages. Each page can have its own custom message, which overrides the default message above.', 'acw-password-protected-messages' ); ?></p>
 
 			<div id="acwppm-rows">
 				<?php
@@ -324,7 +324,7 @@ function acwppm_render_settings_page() {
 			</template>
 
 			<p>
-				<button type="button" class="button button-secondary" id="acwppm-add-row"><?php esc_html_e( 'Add another message', 'custom-password-protected-messages' ); ?></button>
+				<button type="button" class="button button-secondary" id="acwppm-add-row"><?php esc_html_e( 'Add another message', 'acw-password-protected-messages' ); ?></button>
 			</p>
 
 			<?php submit_button(); ?>

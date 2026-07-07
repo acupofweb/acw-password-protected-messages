@@ -1,4 +1,4 @@
-=== Custom Password Protected Messages ===
+=== ACW Password Protected Messages ===
 Contributors: lorenzof
 Tags: password, password protected, private, message, page
 Requires at least: 5.0
@@ -14,7 +14,7 @@ Customize the message displayed on password protected content, globally or with 
 
 By default, WordPress displays a message such as "This content is password protected. To view it please enter your password below:" on password protected posts and pages.
 
-**Custom Password Protected Messages** lets you replace that message with your own text or HTML. You can set a default message for all password protected content, and you can also assign a **different custom message to each specific page** from the plugin settings screen.
+**ACW Password Protected Messages** lets you replace that message with your own text or HTML. You can set a default message for all password protected content, and you can also assign a **different custom message to each specific page** from the plugin settings screen.
 
 Features:
 
@@ -27,7 +27,7 @@ Features:
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/custom-password-protected-messages` directory, or install the plugin through the WordPress plugins screen directly.
+1. Upload the plugin files to the `/wp-content/plugins/acw-password-protected-messages` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the "Plugins" screen in WordPress.
 3. Go to **Settings → Password Messages** to configure your messages.
 
