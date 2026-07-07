@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ACW Password Protected Messages
  * Description: Customize the message displayed on password protected content, globally or with a different message for each page.
- * Author: Lorenzo Fracassi
+ * Author: A Cup of Web
  * Author URI: https://www.acupofweb.it/
  * Version: 1.0.0
  * Requires at least: 5.0
