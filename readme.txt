@@ -25,8 +25,6 @@ Features:
 * Change the "Password" input label to any custom text.
 * Dedicated settings screen under **Settings → Password Messages**.
 
-This plugin is based on "Change Password Protected Message" by pipdig (GPLv2 or later).
-
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/custom-password-protected-messages` directory, or install the plugin through the WordPress plugins screen directly.

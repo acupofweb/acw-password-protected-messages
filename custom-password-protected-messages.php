@@ -11,8 +11,6 @@
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: custom-password-protected-messages
- *
- * Based on "Change Password Protected Message" by pipdig (GPLv2 or later).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -79,7 +77,11 @@ function acwppm_get_message_for_post( $post_id ) {
 }
 
 /**
- * Filter the markup of the password form.
+ * Build the password form with the custom message and label.
+ *
+ * Replaces the form markup entirely, following the same structure
+ * WordPress core uses, so the custom message and label are rendered
+ * natively instead of being patched into the default output.
  *
  * @param string $output Password form HTML.
  * @return string
@@ -89,40 +91,28 @@ function acwppm_filter_password_form( $output ) {
 	$settings = acwppm_get_settings();
 	$message  = acwppm_get_message_for_post( $post_id );
 
+	// Nothing configured: leave the form untouched.
 	if ( '' === $message && empty( $settings['password_label'] ) ) {
 		return $output;
 	}
 
-	if ( '' !== $message ) {
-		// Strip the default first paragraph added by WordPress.
-		$first_paragraph = '';
-		if ( class_exists( 'DOMDocument' ) ) {
-			$doc = new DOMDocument();
-			libxml_use_internal_errors( true );
-			$doc->loadHTML( '<?xml encoding="utf-8" ?>' . $output );
-			libxml_clear_errors();
-			foreach ( $doc->getElementsByTagName( 'p' ) as $paragraph ) {
-				$first_paragraph = $paragraph->textContent;
-				break;
-			}
-		}
-
-		if ( $first_paragraph ) {
-			$output = str_replace( $first_paragraph, '', $output );
-			$output = str_replace( '<p class="post-password-message"></p>', '', $output );
-			$output = str_replace( '<p></p>', '', $output );
-		}
-
-		// Prepend the custom message to the form.
-		$message_html = '<div id="acwppm_message_' . esc_attr( $post_id ) . '" class="acwppm_message post-password-message" style="margin-bottom:10px;">' . wp_kses_post( wpautop( $message ) ) . '</div>';
-		$output       = str_replace( '<form', $message_html . '<form', $output );
+	if ( '' === $message ) {
+		$message = __( 'This content is password protected. To view it please enter your password below:', 'custom-password-protected-messages' );
 	}
 
-	if ( ! empty( $settings['password_label'] ) ) {
-		$output = str_replace( 'Password', esc_html( $settings['password_label'] ), $output );
-	}
+	$label = ! empty( $settings['password_label'] )
+		? $settings['password_label']
+		: __( 'Password:', 'custom-password-protected-messages' );
 
-	return $output;
+	$field_id = 'acwppm-pwbox-' . ( $post_id ? $post_id : wp_rand() );
+
+	$form  = '<div id="acwppm_message_' . esc_attr( $post_id ) . '" class="acwppm_message post-password-message">' . wp_kses_post( wpautop( $message ) ) . '</div>';
+	$form .= '<form action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" class="post-password-form" method="post">';
+	$form .= '<p><label for="' . esc_attr( $field_id ) . '">' . esc_html( $label ) . ' <input name="post_password" id="' . esc_attr( $field_id ) . '" type="password" spellcheck="false" required size="20"></label> ';
+	$form .= '<input type="submit" name="Submit" value="' . esc_attr_x( 'Enter', 'post password form submit button', 'custom-password-protected-messages' ) . '"></p>';
+	$form .= '</form>';
+
+	return $form;
 }
 add_filter( 'the_password_form', 'acwppm_filter_password_form', 999999 );
 
