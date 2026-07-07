@@ -255,7 +255,7 @@ function acwppm_render_page_message_row( $index, $page_id = 0, $message = '' ) {
 			<?php
 			wp_dropdown_pages(
 				array(
-					'id'                => 'acwppm_page_' . $index,
+					'id'                => esc_attr( 'acwppm_page_' . $index ),
 					'name'              => esc_attr( ACWPPM_OPTION . '[page_messages][' . $index . '][page_id]' ),
 					'selected'          => (int) $page_id,
 					'show_option_none'  => esc_html__( '— Select a page —', 'custom-password-protected-messages' ),
@@ -342,11 +342,3 @@ function acwppm_render_settings_page() {
 	</div>
 	<?php
 }
-
-/**
- * Load the plugin text domain.
- */
-function acwppm_load_textdomain() {
-	load_plugin_textdomain( 'custom-password-protected-messages', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-}
-add_action( 'init', 'acwppm_load_textdomain' );
