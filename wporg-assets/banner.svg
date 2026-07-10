@@ -37,6 +37,7 @@
   </g>
 
   <!-- copy -->
-  <text x="520" y="238" font-family="Noto Sans" font-weight="700" font-size="50" fill="#ffffff">ACW Password Protected Messages</text>
-  <text x="522" y="302" font-family="Noto Sans" font-size="30" fill="#f0d2cc">A different custom message for each password protected page.</text>
+  <text x="520" y="205" font-family="Noto Sans" font-weight="700" font-size="52" fill="#ffffff">ACW Custom Messages</text>
+  <text x="520" y="268" font-family="Noto Sans" font-weight="700" font-size="52" fill="#ffffff">for Password Protected Pages</text>
+  <text x="522" y="330" font-family="Noto Sans" font-size="30" fill="#f0d2cc">A different custom message for each password protected page.</text>
 </svg>
