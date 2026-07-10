@@ -1,4 +1,4 @@
-=== ACW Password Protected Messages ===
+=== ACW Custom Messages for Password Protected Pages ===
 Contributors: lorenzof
 Tags: password, password protected, private, message, page
 Requires at least: 5.0
