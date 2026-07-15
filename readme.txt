@@ -57,7 +57,7 @@ The dropdown only lists content that is password protected. Set the page visibil
 
 == Screenshots ==
 
-1. Settings screen with the default message and page-specific messages.
+1. Settings screen with the default message, the wrong password message and content-specific messages.
 2. Custom message displayed on a password protected page.
 
 == Changelog ==
