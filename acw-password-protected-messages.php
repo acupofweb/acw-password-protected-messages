@@ -4,20 +4,30 @@
  * Description: Customize the message displayed on password protected content, globally or with a different message for each page or post.
  * Author: A Cup of Web
  * Author URI: https://www.acupofweb.it/
- * Version: 1.1.0
+ * Version: 1.1.1
  * Requires at least: 5.0
  * Requires PHP: 7.2
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: acw-password-protected-messages
+ * Domain Path: /languages
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-define( 'ACWPPM_VERSION', '1.1.0' );
+define( 'ACWPPM_VERSION', '1.1.1' );
 define( 'ACWPPM_OPTION', 'acwppm_settings' );
+
+/**
+ * Loads the bundled translations. Translations from translate.wordpress.org, when they exist,
+ * are installed in wp-content/languages and take precedence over these.
+ */
+function acwppm_load_textdomain() {
+	load_plugin_textdomain( 'acw-password-protected-messages', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+add_action( 'init', 'acwppm_load_textdomain' );
 
 /**
  * Remove "Protected: " prefix from titles.

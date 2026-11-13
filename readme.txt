@@ -2,9 +2,9 @@
 Contributors: lorenzof
 Tags: password, password protected, private, message, page
 Requires at least: 5.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,9 @@ The dropdown only lists content that is password protected. Set the page visibil
 
 == Changelog ==
 
+= 1.1.1 =
+* Fix: the bundled Italian translation is now loaded, so the plugin appears in Italian on sites set to Italian (it stays in English on sites in other languages).
+
 = 1.1.0 =
 * Content-specific messages now work with posts and custom post types, not just pages.
 * The content dropdown only lists password protected items, grouped by post type.
@@ -76,6 +79,9 @@ The dropdown only lists content that is password protected. Set the page visibil
 * Custom "Password" field label.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+The settings page and messages now appear in Italian on sites set to Italian.
 
 = 1.1.0 =
 Custom messages can now be assigned to posts and custom post types, and you can show an error message after a wrong password attempt.
